@@ -3,7 +3,7 @@ package persian
 import "strings"
 
 var (
-	paMap = map[rune]rune{
+	plMap = map[rune]rune{
 		'0': '۰',
 		'1': '۱',
 		'2': '۲',
@@ -16,7 +16,7 @@ var (
 		'9': '۹',
 	}
 
-	apMap = map[rune]rune{
+	lpMap = map[rune]rune{
 		'۰': '0',
 		'۱': '1',
 		'۲': '2',
@@ -28,13 +28,15 @@ var (
 		'۸': '8',
 		'۹': '9',
 	}
+
+	pDigits = []rune{'۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'}
 )
 
 // ToPersianDigits converts all Latin digits in a string to Persian digits.
 func ToPersianDigits(str string) string {
 	var sb strings.Builder
 	for _, r := range []rune(str) {
-		if pr, ok := paMap[r]; ok {
+		if pr, ok := plMap[r]; ok {
 			sb.WriteRune(pr)
 		} else {
 			sb.WriteRune(r)
@@ -47,11 +49,21 @@ func ToPersianDigits(str string) string {
 func ToLatinDigits(str string) string {
 	var sb strings.Builder
 	for _, r := range []rune(str) {
-		if ar, ok := apMap[r]; ok {
+		if ar, ok := lpMap[r]; ok {
 			sb.WriteRune(ar)
 		} else {
 			sb.WriteRune(r)
 		}
 	}
 	return sb.String()
+}
+
+// IsPersianDigit checks if a rune is a Persian digit.
+func IsPersianDigit(r rune) bool {
+	for _, d := range pDigits {
+		if d == r {
+			return true
+		}
+	}
+	return false
 }
