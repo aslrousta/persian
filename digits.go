@@ -30,10 +30,9 @@ var (
 	}
 )
 
-// ToPersianDigits converts all ASCII digits in a string to Persian
-// digits.
+// ToPersianDigits converts all Latin digits in a string to Persian digits.
 func ToPersianDigits(str string) string {
-	sb := new(strings.Builder)
+	var sb strings.Builder
 	for _, r := range []rune(str) {
 		if pr, ok := paMap[r]; ok {
 			sb.WriteRune(pr)
@@ -44,10 +43,9 @@ func ToPersianDigits(str string) string {
 	return sb.String()
 }
 
-// ToASCIIDigits converts all Persian digits in a string to ASCII
-// digits.
-func ToASCIIDigits(str string) string {
-	sb := new(strings.Builder)
+// ToLatinDigits converts all Persian digits in a string to Latin digits.
+func ToLatinDigits(str string) string {
+	var sb strings.Builder
 	for _, r := range []rune(str) {
 		if ar, ok := apMap[r]; ok {
 			sb.WriteRune(ar)

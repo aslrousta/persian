@@ -1,6 +1,9 @@
 package persian
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestToPersianDigits(t *testing.T) {
 	tests := []struct {
@@ -23,7 +26,12 @@ func TestToPersianDigits(t *testing.T) {
 	}
 }
 
-func TestToASCIIDigits(t *testing.T) {
+func ExampleToPersianDigits() {
+	fmt.Print(ToPersianDigits("1234"))
+	// Output: ۱۲۳۴
+}
+
+func TestToLatinDigits(t *testing.T) {
 	tests := []struct {
 		name string
 		str  string
@@ -37,9 +45,14 @@ func TestToASCIIDigits(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := ToASCIIDigits(tt.str); got != tt.want {
-				t.Errorf("ToASCIIDigits() = %v, want %v", got, tt.want)
+			if got := ToLatinDigits(tt.str); got != tt.want {
+				t.Errorf("ToLatinDigits() = %v, want %v", got, tt.want)
 			}
 		})
 	}
+}
+
+func ExampleToLatinDigits() {
+	fmt.Print(ToLatinDigits("۱۲۳۴"))
+	// Output: 1234
 }
