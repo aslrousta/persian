@@ -6,14 +6,8 @@ import (
 )
 
 const (
-	// PercentSign is an Arabic/Persian percent sign.
-	PercentSign = '\u066A'
-
-	// DecimalSeparator is an Arabic/Persian decimal separator.
-	DecimalSeparator = '\u066B'
-
-	// ThousandsSeparator is an Arabic/Persian thousands separator.
-	ThousandsSeparator = '\u066C'
+	decimalSeparator   = '\u066B'
+	thousandsSeparator = '\u066C'
 )
 
 // Wrap marks a value v to be formatted with Persian locale.
@@ -57,7 +51,7 @@ func format(str string, sep bool) string {
 		}
 		for len(digits) > 0 {
 			if sep {
-				sb.WriteRune(ThousandsSeparator)
+				sb.WriteRune(thousandsSeparator)
 			}
 			sb.WriteRune(digits[0])
 			sb.WriteRune(digits[1])
@@ -87,7 +81,7 @@ func format(str string, sep bool) string {
 			}
 		case DigitWithPeriod:
 			if IsPersianDigit(r) {
-				sb.WriteRune(DecimalSeparator)
+				sb.WriteRune(decimalSeparator)
 				sb.WriteRune(r)
 				state = DigitWithoutSep
 			} else {
