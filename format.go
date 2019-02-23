@@ -45,13 +45,18 @@ func format(str string, sep bool) string {
 	var digits []rune
 
 	shipDigits := func() {
+		hasLeading := len(digits) % 3 > 0
 		for len(digits) % 3 > 0 {
 			sb.WriteRune(digits[0])
 			digits = digits[1:]
 		}
 		for len(digits) > 0 {
 			if sep {
-				sb.WriteRune(thousandsSeparator)
+				if hasLeading {
+					sb.WriteRune(thousandsSeparator)
+				} else {
+					hasLeading = true
+				}
 			}
 			sb.WriteRune(digits[0])
 			sb.WriteRune(digits[1])
