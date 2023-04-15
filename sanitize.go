@@ -29,7 +29,7 @@ func init() {
 // Sanitize cleans a string from unwanted characters and symbols.
 func Sanitize(str string, sanitizers ...Sanitizer) string {
 	var sb strings.Builder
-	for _, r := range []rune(str) {
+	for _, r := range str {
 		for _, s := range sanitizers {
 			r = s.Sanitize(r)
 		}
@@ -48,6 +48,12 @@ type arabicSanitizer struct{}
 func (arabicSanitizer) Sanitize(r rune) rune {
 	if IsArabicDigit(r) {
 		return '\u06F0' + r - '\u0660'
+	}
+	switch r {
+	case '\u064A', '\u0649':
+		return '\u06CC'
+	case '\u0643':
+		return '\u06A9'
 	}
 	return r
 }

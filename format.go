@@ -45,8 +45,8 @@ func format(str string, sep bool) string {
 	var digits []rune
 
 	shipDigits := func() {
-		hasLeading := len(digits) % 3 > 0
-		for len(digits) % 3 > 0 {
+		hasLeading := len(digits)%3 > 0
+		for len(digits)%3 > 0 {
 			sb.WriteRune(digits[0])
 			digits = digits[1:]
 		}
@@ -65,7 +65,7 @@ func format(str string, sep bool) string {
 		}
 	}
 
-	for _, r := range []rune(str) {
+	for _, r := range str {
 		switch state {
 		case NonDigit:
 			if IsPersianDigit(r) {
